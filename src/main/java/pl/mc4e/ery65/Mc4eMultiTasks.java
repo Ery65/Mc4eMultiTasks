@@ -1,8 +1,10 @@
 package pl.mc4e.ery65;
 
+import org.apache.logging.log4j.LogManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.mc4e.ery65.configuration.PluginConfig;
+import pl.mc4e.ery65.filter.Log4uFilter;
 import pl.mc4e.ery65.mysql.MySQL;
 
 public class Mc4eMultiTasks extends JavaPlugin {
@@ -13,6 +15,10 @@ public class Mc4eMultiTasks extends JavaPlugin {
 	public void onEnable(){
 		plugin = this;
 		getBase();
+		//Bukkit.getLogger().setFilter(new SignUPandINFilter());
+		//Logger.getLogger("Minecraft").setFilter(new SignUPandINFilter());
+		org.apache.logging.log4j.core.Logger log = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
+		log.addFilter(new Log4uFilter());
 	}
 	
 	public void onDisable(){
