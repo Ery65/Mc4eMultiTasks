@@ -1,4 +1,4 @@
-package pl.mc4e.ery56.listeners;
+package pl.mc4e.ery65.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

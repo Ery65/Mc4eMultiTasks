@@ -9,9 +9,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import pl.mc4e.ery56.listeners.PlayerListener;
 import pl.mc4e.ery65.configuration.PluginConfig;
 import pl.mc4e.ery65.filter.Log4uFilter;
+import pl.mc4e.ery65.listeners.PlayerListener;
 import pl.mc4e.ery65.mysql.MySQL;
 
 public class Mc4eMultiTasks extends JavaPlugin {
