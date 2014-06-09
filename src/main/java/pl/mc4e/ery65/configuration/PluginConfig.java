@@ -8,6 +8,7 @@ public class PluginConfig {
 	
 	private static FileConfiguration cfg;
 	public static String user,password,database,host;
+	public static String prefix;
 	public static int port;
 	public static boolean enabled;
 	
@@ -20,6 +21,7 @@ public class PluginConfig {
 			host = cfg.getString("MySQL.host", "localhost");
 			database = cfg.getString("MySQL.database", "minecraft");
 			port = cfg.getInt("MySQL.port",3306);
+			prefix = cfg.getString("MySQL.prefix");
 		}
 	}
 

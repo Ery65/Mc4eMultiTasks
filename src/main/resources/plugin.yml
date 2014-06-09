@@ -3,3 +3,27 @@ author: Ery65
 version: ${project.version}
 description: ${project.description}
 main: ${project.groupId}.${project.artifactId}
+commands:
+  login:
+    description: Uzyj tej komendy aby sie zalogowac.
+    usage: /<command> <haslo>
+    aliases: [l,log]
+  rejestruj:
+    description: Uzyj tej komendy aby sie zarejestrowac.
+    usage: /<command> <haslo> <powtorz haslo>
+    aliases: [r,reg,rej,register]
+  zmienhaslo:
+    description: Uzyj tej komendy aby zmienic swoje haslo.
+    usage: /<command> <stare haslo> <nowe haslo>
+    aliases: [changepassword,change,chan,zmien,zm]
+  odrejestruj:
+    description: Uzyj tej komendy aby sie odrejestrowac.
+    usage: /<command>
+    aliases: [wyr,od,un,unregister]
+  mail:
+    description: Komenda do ustawiania, zmieniania adresu e-mail.
+    usage: /<command> <dodaj|zmien|usun|sprawdz>
+    aliases: [email]
+  pyt:
+    description: Komenda do ustawienie/zmiany pytania pomocniczego.
+    usage: /<command> <ustaw|zmien|usun|sprawdz>

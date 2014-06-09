@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import pl.mc4e.ery65.configuration.PluginConfig;
+
 public class MySQL {
 	
 	private Connection conn;
@@ -19,6 +21,7 @@ public class MySQL {
 		this.host = host;
 		this.port = port;
 		this.openConnection();
+		createTables();
 	}
 
 	public Connection openConnection() throws Exception {
@@ -39,15 +42,51 @@ public class MySQL {
 			return false;
 		}
 	}
+	
+	public void createTables(){
+		StringBuilder table = new StringBuilder();
+		table.append("CREATE TABLE IF NOT EXISTS `" + PluginConfig.prefix + "_players` ")
+		.append("(`id` INT(5) NOT NULL AUTO_INCREMENT, ")
+		.append("`name` VARCHAR(16) NOT NULL UNIQUE, ")
+		.append("`password` VARCHAR(255) NOT NULL, ")
+		.append("`lastlogin` BIGINT(20), ")
+		.append("`lastlogout` BIGINT(20),")
+		.append("`timeplayed` BIGINT(20), ")
+		.append("`email` VARCHAR(64), ")
+		.append("`question` TEXT, ")
+		.append("`answer` VARCHAR(64), ")
+		.append("PRIMARY KEY (`id`), ")
+		.append("KEY (`name`))");
+		queryUpdate(table.toString());
+		
+		StringBuilder table2 = new StringBuilder();
+		table2.append("CREATE TABLE IF NOT EXISTS `"+ PluginConfig.prefix + "_secure` ")
+		.append("(`id` INT(5) NOT NULL AUTO_INCREMENT, ")
+		.append("`playerID` INT(5) NOT NULL,")
+		.append("`bad_logins` TEXT,")
+		.append("`tries` INT(5), ")
+		.append("KEY (`id`))");
+		queryUpdate(table2.toString());
+		
+		StringBuilder table3 = new StringBuilder();
+		table3.append("CREATE TABLE IF NOT EXISTS `" + PluginConfig.prefix + "_econ` ")
+		.append("(`id` INT(5) NOT NULL AUTO_INCREMENT, ")
+		.append("`name` VARCHAR(16) NOT NULL UNIQUE, ")
+		.append("`money` DECIMAL(15,2) NOT NULL DEFAULT 0, ")
+		.append("PRIMARY KEY (`id`), ")
+		.append("KEY (`name`))");
+		queryUpdate(table3.toString());
+	}
 
 	public void queryUpdate(String query) {
-		Connection conn = this.conn;
+		Connection con = conn;
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(query);
+			st = con.prepareStatement(query);
 			st.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("Blad podczas update '" + query + "'.");
+			e.printStackTrace();
 		} finally {
 			this.closeRessources(null, st);
 		}
@@ -59,11 +98,11 @@ public class MySQL {
 				rs.close();
 			} catch (SQLException e) {
 			}
-			if (st != null) {
-				try {
-					st.close();
-				} catch (SQLException e) {
-				}
+		}
+		if (st != null) {
+			try {
+				st.close();
+			} catch (SQLException e) {
 			}
 		}
 	}
