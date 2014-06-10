@@ -33,6 +33,10 @@ public class PlayerManager {
 		p.register(MD5HASH.getHashedPassword(pass));
 	}
 	
+	public Mc4ePlayer getMc4ePlayer(Player p){
+		return reg.get(p.getName());
+	}
+	
 	public void addNotLogin(Player p){
 		notLogin.add(p);
 	}
@@ -51,5 +55,8 @@ public class PlayerManager {
 		return notLogin.size()!=0;
 	}
 	
+	public List<Player> getNoLogin(){
+		return notLogin;
+	}
 	
 }
