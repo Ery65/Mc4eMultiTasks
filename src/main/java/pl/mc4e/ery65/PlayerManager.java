@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
-import pl.mc4e.ery65.utils.MD5HASH;
 import pl.mc4e.ery65.utils.Mc4ePlayer;
 
 import com.google.common.collect.Lists;
@@ -17,7 +16,7 @@ public class PlayerManager {
 	private List<Player> notLogin = Lists.newArrayList();
 	
 	public boolean isRegistered(Player player){
-		return reg.containsKey(player.getName());
+		return reg.containsKey(player.getName().toLowerCase());
 	}
 	
 	public boolean addToRegisteredPlayers(Player player){
@@ -28,13 +27,8 @@ public class PlayerManager {
 		return p.isRegistered();
 	}
 	
-	public void registerPlayer(Player player, String pass){
-		Mc4ePlayer p = new Mc4ePlayer(player);
-		p.register(MD5HASH.getHashedPassword(pass));
-	}
-	
 	public Mc4ePlayer getMc4ePlayer(Player p){
-		return reg.get(p.getName());
+		return reg.get(p.getName().toLowerCase());
 	}
 	
 	public void addNotLogin(Player p){

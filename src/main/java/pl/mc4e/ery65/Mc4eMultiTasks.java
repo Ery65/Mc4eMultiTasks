@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import pl.mc4e.ery65.commands.LoginCommand;
+import pl.mc4e.ery65.commands.RegisterCommand;
 import pl.mc4e.ery65.configuration.PluginConfig;
 import pl.mc4e.ery65.filter.Log4uFilter;
 import pl.mc4e.ery65.listeners.PlayerListener;
@@ -33,6 +35,8 @@ public class Mc4eMultiTasks extends JavaPlugin {
 		Logger log = (Logger) LogManager.getRootLogger();
 		log.addFilter(new Log4uFilter());
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+		getCommand("register").setExecutor(new RegisterCommand());
+		getCommand("login").setExecutor(new LoginCommand());
 	}
 	
 	public void onDisable(){

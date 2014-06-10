@@ -15,8 +15,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	void onJoin(PlayerJoinEvent e){
 		Mc4eMultiTasks.getPlayerManager().addNotLogin(e.getPlayer());
-		boolean registered = Mc4eMultiTasks.getPlayerManager().addToRegisteredPlayers(e.getPlayer());
-		if (registered){
+		if (Mc4eMultiTasks.getPlayerManager().addToRegisteredPlayers(e.getPlayer())){
 			e.getPlayer().sendMessage("§aWpisz §b/login <haslo> §aaby sie zalogowac.");
 		} else {
 			e.getPlayer().sendMessage("§6Wpisz §b/register <haslo> <haslo> §6aby sie zarejestrowac.");

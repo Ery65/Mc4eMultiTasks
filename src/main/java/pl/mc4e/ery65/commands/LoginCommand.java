@@ -12,7 +12,7 @@ public class LoginCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args){
 		if (cs instanceof Player){
-			if (args.length == 1){
+			if (args.length == 1){				
 				if (Mc4eMultiTasks.getPlayerManager().containsNotLogin((Player) cs)){
 					if (Mc4eMultiTasks.getPlayerManager().isRegistered((Player)cs)){
 						if (Mc4eMultiTasks.getPlayerManager().getMc4ePlayer((Player) cs).isValidPassword(args[0])){

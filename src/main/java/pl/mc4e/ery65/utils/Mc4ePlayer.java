@@ -35,7 +35,7 @@ public class Mc4ePlayer {
 	}
 	
 	public boolean isValidPassword(String password){
-		return MD5HASH.isMatch(password, password);
+		return MD5HASH.isMatch(password, this.password);
 	}
 	
 	public boolean isRegistered(){
@@ -59,6 +59,7 @@ public class Mc4ePlayer {
 		ResultSet rs = null;
 		try {
 			st = sql.getConnection().prepareStatement(query.toString());
+			st.setString(1, name);
 			rs = st.executeQuery();
 			if (rs.next()){
 				pass = rs.getString("password");
@@ -83,7 +84,7 @@ public class Mc4ePlayer {
 			}
 		StringBuilder com = new StringBuilder();
 		com.append("SELECT * ")
-		.append("FROM `" + PluginConfig.database + "_players` ")
+		.append("FROM `" + PluginConfig.prefix + "_players` ")
 		.append("WHERE `name`=?");
 		
 		PreparedStatement ps = null;
@@ -120,7 +121,7 @@ public class Mc4ePlayer {
 		.append("(`id`,`name`,`password`, `lastlogin`, `lastlogout`, `timeplayed`, `email`, ")
 		.append("`question`, `answer`) VALUES (")
 		.append("null, \"" + name + "\", \"" + password +"\"," + lastlogin +", ")
-		.append(System.currentTimeMillis()+ ",`timeplayed`+"+timeplayed+" , null,null,null,null)")
+		.append(System.currentTimeMillis()+ ",`timeplayed`+"+timeplayed+" , null,null,null)")
 		.append(" ON DUPLECATE KEY UPDATE ")
 		.append("`timeplayed`=VALUES(`timeplayed`");
 		mysql.queryUpdate(com.toString());
@@ -139,11 +140,11 @@ public class Mc4ePlayer {
 				return;
 			}
 		StringBuilder com = new StringBuilder();
-		com.append("INSERT INTO `" + PluginConfig.database + "_players` ")
+		com.append("INSERT INTO `" + PluginConfig.prefix + "_players` ")
 		.append("(`id`,`name`,`password`, `lastlogin`, `lastlogout`, `timeplayed`, `email`, ")
 		.append("`question`, `answer`) VALUES (") 
 		.append("null, \"" + name + "\", \"" + hashedPassword +"\", " + System.currentTimeMillis() + ", ")
-		.append("0, 0, null,null,null,null)");
+		.append("0, 0, null,null,null)");
 		mysql.queryUpdate(com.toString());
 		lastlogin = System.currentTimeMillis();
 	}
