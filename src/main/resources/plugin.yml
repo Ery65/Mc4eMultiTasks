@@ -11,7 +11,7 @@ commands:
   rejestruj:
     description: Uzyj tej komendy aby sie zarejestrowac.
     usage: /<command> <haslo> <powtorz haslo>
-    aliases: [r,reg,rej,register]
+    aliases: [reg,rej,register]
   zmienhaslo:
     description: Uzyj tej komendy aby zmienic swoje haslo.
     usage: /<command> <stare haslo> <nowe haslo>

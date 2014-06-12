@@ -24,11 +24,34 @@ public class MySQL {
 		createTables();
 	}
 
-	public Connection openConnection() throws Exception {
+	/*public Connection openConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://" + host+":" + port+"/" + this.database, user, password);
 		this.conn = conn;
 		return conn;
+	}*/
+	
+	public Connection openConnection() throws SQLException, ClassNotFoundException {
+		if (conn != null) {
+            try {
+            	conn.createStatement().execute("SELECT 1;");
+
+            } catch (SQLException sqlException) {
+                if (sqlException.getSQLState().equals("08S01")) {
+                    try {
+                    	conn.close();
+
+                    } catch (SQLException ignored) {
+                    }
+                }
+            }
+        }
+
+        if (conn == null || conn.isClosed()) {
+        	Class.forName("com.mysql.jdbc.Driver");
+        	this.conn = DriverManager.getConnection("jdbc:mysql://" + host+":" + port+"/" + this.database, user, password);
+        }
+        return this.conn;
 	}
 
 	public Connection getConnection() {

@@ -80,6 +80,7 @@ public class Mc4ePlayer {
 				mysql.openConnection();
 			} catch (Exception e){
 				e.printStackTrace();
+				System.out.println("inCheck");
 				return false;
 			}
 		StringBuilder com = new StringBuilder();

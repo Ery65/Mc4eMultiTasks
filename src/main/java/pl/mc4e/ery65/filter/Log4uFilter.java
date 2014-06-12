@@ -9,15 +9,14 @@ import org.apache.logging.log4j.message.Message;
 
 public class Log4uFilter implements Filter {
 	
-	public Log4uFilter(){
-	}
 	
 	public Result filter(LogEvent e) {
 		if (e.getMessage()==null||e==null){
-			return Result.NEUTRAL;
+			return Result.ACCEPT;
 		} else {
-			if (e.getMessage().toString().contains("issued server command:")){
-				System.out.println("1");
+			String msg = e.getMessage().toString();
+			if (msg.contains("/l")|| msg.contains("/log") || msg.contains("/reg")||msg.contains("/rej")
+					||msg.contains("/rejestruj")||msg.contains("/register")||msg.contains("/l")||msg.contains("/login")){
 				return Result.DENY;
 			} else
 				return Result.ACCEPT;
@@ -27,6 +26,14 @@ public class Log4uFilter implements Filter {
 	@Override
 	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3,
 			Object... arg4) {
+		String msg = arg3;
+		if (msg !=null){
+			if (msg.contains("/l")|| msg.contains("/log") || msg.contains("/reg")||msg.contains("/rej")
+					||msg.contains("/rejestruj")||msg.contains("/register")||msg.contains("/l")||msg.contains("/login")){
+				return Result.DENY;
+			} else
+				return Result.ACCEPT;
+		}
 		return Result.NEUTRAL;
 	}
 

@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -49,6 +50,19 @@ public class PlayerListener implements Listener {
 				for (Player p : Mc4eMultiTasks.getPlayerManager().getNoLogin()){
 					e.getRecipients().remove(p);
 				}
+			}
+		}
+	}
+	
+	@EventHandler
+	void onCommand(PlayerCommandPreprocessEvent e){
+		if (Mc4eMultiTasks.getPlayerManager().SizeNotZero()){
+			String msg = e.getMessage();
+			if (msg.contains("/l")|| msg.contains("log") || msg.contains("reg")||msg.contains("rej")
+					||msg.contains("rejestruj")||msg.contains("register")||msg.contains("l")||msg.contains("login")){
+			} else {
+				e.getPlayer().sendMessage("§cNie mozesz uzyc komend przed zalogowaniem sie!");
+				e.setCancelled(true);
 			}
 		}
 	}
